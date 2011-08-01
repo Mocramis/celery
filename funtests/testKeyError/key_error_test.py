@@ -33,27 +33,12 @@ class TestResultsAreSafe(unittest.TestCase):
       exeptlist.append("Error: %s" % 
         ''.join(traceback.format_exception(*sys.exc_info())))
 
-  
-#  @staticmethod
-#  def _addLotsofTasks(self, exeptlist):
-#    try:
-#        self._startEvent.wait()
-#        while self._startEvent.isSet():
-#          task.nothing.delay()
-#    except:
-#      exeptlist.append("An Exception occured during a task. Some information"
-#        "may not be processed until the next recover operation. Error: %s" % 
-#        ''.join(traceback.format_exception(*sys.exc_info())))
-
   def testRun100Threads(self):
     errors = []
     for _ in xrange(100):
       self._threads.append(
         Thread(target=self._runATaskAndCheckItsResult, 
           args=(self, errors)))
-#      self._threads.append(
-#        Thread(target=self._addLotsofTasks, 
-#          args=(self, errors)))
     for thread in self._threads:
       thread.start()
     time.sleep(3) #make sure all tasks completed
